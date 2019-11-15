@@ -42,6 +42,13 @@ const routes = [
     meta: {
       title: '公告详情'
     }
+  },
+  {
+    name: 'activity',
+    component: () => import('./view/activity'),
+    meta: {
+      title: '邀请活动'
+    }
   }
 ];
 
