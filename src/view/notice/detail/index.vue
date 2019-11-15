@@ -44,8 +44,9 @@
         methods: {
             getDetail() {
                 get({detailId: this.detailId}).then(res =>{
+                    console.log(res)
                     if (res.data.code === '200') {
-                        this.dataDetail = res.data.data
+                        this.dataDetail = res.data
                     }
                 })
             }
