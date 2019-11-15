@@ -28,6 +28,20 @@ const routes = [
     meta: {
       title: '商品详情'
     }
+  },
+  {
+    name: 'notice/list',
+    component: () => import('./view/notice/list'),
+    meta: {
+      title: '公告列表'
+    }
+  },
+  {
+    name: 'notice/detail',
+    component: () => import('./view/notice/detail'),
+    meta: {
+      title: '公告详情'
+    }
   }
 ];
 
