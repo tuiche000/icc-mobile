@@ -6,7 +6,7 @@
 
 <script>
 import { Button } from "vant";
-require('../../utils/bridge')
+require("../../utils/bridge");
 
 export default {
   components: {
@@ -19,11 +19,19 @@ export default {
     };
   },
   created() {
-    console.log(window.JSBridge)
+    console.log(window.JSBridge);
   },
   methods: {
     getUserInfo() {
-      alert(JSON.stringify(window.nativeBridge));
+      // var str = window.jsObj
+      // alert(JSON.stringify(str));
+      console.log(window);
+      window.jsObj.HtmlcallJava();
+      // window.alert(111)
+      // window.nativeBridge.postMessage('getUserInfo');
+      // window.webkit.messageHandlers.nativeBridge.postMessage('getUserInfo');
+      // window.postBridgeMessage('getUserInfo')
+      // window.JSBridge.invoke('getUserInfo')
     }
   }
 };

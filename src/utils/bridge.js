@@ -1,4 +1,9 @@
 (function () {
+  document.addEventListener('deviceready', function () {
+    console.log('Device is Ready!');
+    // ....your code
+  }, false);
+  
   console.log(999)
   var id = 0,
     callbacks = {},
@@ -10,11 +15,12 @@
       // 判断环境，获取不同的 nativeBridge
       var thisId = id++; // 获取唯一 id
       callbacks[thisId] = callback; // 存储 Callback
-      window.nativeBridge.postMessage({
-        bridgeName: bridgeName,
-        data: data || {},
-        callbackId: thisId // 传到 Native 端
-      });
+      window.postBridgeMessage('getUserInfo');
+      // window.nativeBridge.postMessage({
+      //   bridgeName: bridgeName,
+      //   data: data || {},
+      //   callbackId: thisId // 传到 Native 端
+      // });
     },
     receiveMessage: function (msg) {
       var bridgeName = msg.bridgeName,
