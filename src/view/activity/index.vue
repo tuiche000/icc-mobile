@@ -318,7 +318,7 @@
                     .nickName {
                         position: absolute;
                         left: 90px;
-                        width: 110px;
+                        width: 30%;
                         display: block;
                         text-overflow: ellipsis;
                         overflow: hidden;
@@ -330,7 +330,7 @@
                     }
                     .desc {
                         position: absolute;
-                        left: 200px;
+                        left: 205px;
                     }
                     .rank {
                         position: absolute;
