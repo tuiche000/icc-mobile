@@ -1,4 +1,5 @@
 (function () {
+  console.log(999)
   var id = 0,
     callbacks = {},
     registerFuncs = {};
@@ -9,7 +10,7 @@
       // 判断环境，获取不同的 nativeBridge
       var thisId = id++; // 获取唯一 id
       callbacks[thisId] = callback; // 存储 Callback
-      nativeBridge.postMessage({
+      window.nativeBridge.postMessage({
         bridgeName: bridgeName,
         data: data || {},
         callbackId: thisId // 传到 Native 端
@@ -30,26 +31,26 @@
         if (registerFuncs[bridgeName]) { // 通过 bridgeName 找到句柄
           var ret = {},
             flag = false;
-          registerFuncs[bridgeName].forEach(function (callback) => {
-            callback(data, function(r) {
+          registerFuncs[bridgeName].forEach(function (callback) {
+            callback(data, function (r) {
               flag = true;
               ret = Object.assign(ret, r);
             });
-        });
-        if (flag) {
-          nativeBridge.postMessage({ // 回调 Native
-            responstId: responstId,
-            ret: ret
           });
+          if (flag) {
+            window.nativeBridge.postMessage({ // 回调 Native
+              responstId: responstId,
+              ret: ret
+            });
+          }
         }
       }
-    }
-  },
-    register: function(bridgeName, callback) {
+    },
+    register: function (bridgeName, callback) {
       if (!registerFuncs[bridgeName]) {
         registerFuncs[bridgeName] = [];
       }
       registerFuncs[bridgeName].push(callback); // 存储回调
     }
-};
-}) ();
+  };
+})();
