@@ -5,17 +5,8 @@
             <div class="header-info">
                 <img class="top" src="./images/top.png">
                 <div class="time-box">
-                    <!--<span class="d1">1{{d1}}</span>
-                    <span class="d2">1{{d2}}</span>
-                    <span class="h1">2{{h1}}</span>
-                    <span class="h2">3{{h2}}</span>
-                    <span class="m1">4{{m1}}</span>
-                    <span class="m2">5{{m2}}</span>
-                    <span class="s1">3{{s1}}</span>
-                    <span class="s2">5{{s2}}</span>-->
                     <van-count-down :time="dateCount">
                         <template v-slot="timeData">
-
                             <span class="d1">{{ timeData.days|fmtData(1)}}</span>
                             <span class="d2">{{ timeData.days|fmtData(2)}}</span>
                             <span class="h1">{{ timeData.hours|fmtData(1)}}</span>
@@ -29,7 +20,7 @@
                     <img class="countdown" src="./images/countdown.png" alt="">
                 </div>
             </div>
-            <div class="invite-info" :class="{active: animate}">
+            <div v-if="JSON.stringify(inviteData) != '{}'" class="invite-info" :class="{active: animate}">
                 <span v-if="inviteData.headImg===''"><img class="head" src="./images/default-head.png" alt=""></span>
                 <span v-else><img class="head" :src="inviteData.headImg" alt=""></span>
                 <span>{{inviteData.nickName}}</span>
@@ -69,25 +60,10 @@
                     <span class="desc">已邀请</span>
                     <span class="people">{{item.inviteNum}}人</span>
                 </div>
-                <!--<van-list v-model="loading" :finished="finished" @load="onLoad" :offset="10">
-                    <div class="list-item">
-                        <van-cell class="item" v-for="(item, index) in rankAllList" :key="index">
-                            <span v-if="item.rank===1"><img class='rank' src='./images/first.png'></span>
-                            <span v-else-if="item.rank===2"><img class='rank' src='./images/second.png'></span>
-                            <span v-else-if="item.rank===3"><img class='rank' src='./images/third.png'></span>
-                            <span v-else class='number'>{{item.rank}}</span>
-                            <span v-if="item.headImg===''"><img class="rank-head" src="./images/default-head.png" alt=""></span>
-                            <span  v-if="item.headImg"><img class="rank-head" :src="item.headImg" alt=""></span>
-                            <span class="nickName">{{item.nickName}}</span>
-                            <span class="desc">已邀请</span>
-                            <span class="people">{{item.inviteNum}}人</span>
-                        </van-cell>
-                    </div>
-                </van-list>-->
             </div>
             <div class="img-plan">
                 <img class="line" src="./images/daily-reward.png" alt="">
-                <van-tabs class="van-tab" swipeable @click="changeTab">
+                <van-tabs class="van-tab" swipeable>
                     <van-tab class="van-item" v-for="(item, index) in rankRewardList" :key="index" :title="item.inviteDate|fmtDate('MM.dd')">
                         <span v-if="item.headImg===''"><img class="head" src="./images/default-head.png" alt=""></span>
                         <span v-else><img class="head" :src="item.headImg" alt=""></span>
@@ -127,14 +103,6 @@
             return {
                 dataList: [],
                 inviteData: {},
-                d1: '',
-                d2: '',
-                h1: '',
-                h2: '',
-                m1: '',
-                m2: '',
-                s1: '',
-                s2: '',
                 dateCount: 0,
                 inviteInfo: [],
                 rankDayList: [],
@@ -142,10 +110,6 @@
                 rankRewardList: [],
                 showDay: true,
                 animate: false,//最新邀请轮播动画
-                // list: [],
-                // loading: false,   //是否处于加载状态
-                // finished: false,  //是否已加载完所有数据
-                // isLoading: false,   //是否处于下拉刷新状态
             };
         },
         created() {
@@ -153,14 +117,13 @@
             this.getInviteInfo()
             this.getRankReward()
             this.changeDay()
+            this.getMyData()
         },
         methods: {
             queryData() {
                 ACTIVITY_TIME({}).then(res => {
                     if (res.code === '200') {
                         this.dateCount = parseInt(res.data.time)*1000
-                        // this.dateCount = 1234*1000
-                        // this.formatSeconds(1234)
                     }
                 })
             },
@@ -179,67 +142,6 @@
                         this.rankAllList = res.data.rows
                     }
                 })
-            },
-            changeTab(val) {
-                console.log(val)
-            },
-            formatSeconds(value) {
-                const timer = () => {
-                    setInterval(function(){
-                        if(value> 0) {
-                            value =  value-1
-                            let theTime = parseInt(value);// 需要转换的时间秒
-                            let theTime1 = 0;// 分
-                            let theTime2 = 0;// 小时
-                            let theTime3 = 0;// 天
-                            if (theTime > 60) {
-                                theTime1 = parseInt(theTime / 60);
-                                theTime = parseInt(theTime % 60);
-                                if (theTime1 > 60) {
-                                    theTime2 = parseInt(theTime1 / 60);
-                                    theTime1 = parseInt(theTime1 % 60);
-                                    if (theTime2 > 24) {
-                                        //大于24小时
-                                        theTime3 = parseInt(theTime2 / 24);
-                                        theTime2 = parseInt(theTime2 % 24);
-                                    }
-                                }
-                            }
-                            theTime = theTime > 9 ? theTime.toString() : '0' + theTime
-                            theTime1 = theTime1 > 9 ? theTime1.toString() : '0' + theTime1
-                            theTime2 = theTime2 > 9 ? theTime2.toString() : '0' + theTime2
-                            theTime3 = theTime3 > 9 ? theTime3.toString() : '0' + theTime3
-                            this.d1 = theTime3.substr(0,1)
-                            this.d2 = theTime3.substr(1,1)
-                            this.h1 = theTime2.substr(0,1)
-                            this.h2 = theTime2.substr(1,1)
-                            this.m1 = theTime1.substr(0,1)
-                            this.m2 = theTime1.substr(1,1)
-                            this.s1 = theTime.substr(0,1)
-                            this.s2 = theTime.substr(1,1)
-                            timer()
-                        }else {
-                            value = 0
-                        }
-                    },1000)
-                }
-                timer()
-
-                // let result = '';
-                // if (theTime > 0) {
-                //     result = "" + parseInt(theTime) + "秒";
-                // }
-                // if (theTime1 > 0) {
-                //     result = "" + parseInt(theTime1) + "分" + result;
-                // }
-                // if (theTime2 > 0) {
-                //     result = "" + parseInt(theTime2) + "小时" + result;
-                // }
-                // if (theTime3 > 0) {
-                //     result = "" + parseInt(theTime3) + "天" + result;
-                // }
-                // console.log(result)
-                // return result;
             },
             getInviteInfo() {
                 this.animate = true;
@@ -261,18 +163,7 @@
                 RANK_REWARD().then(res =>{
                     this.rankRewardList = res.data
                 })
-            },
-            /*onLoad() {      //上拉加载
-                setTimeout(() => {
-                    for (let i = 0; i < 15; i++) {
-                        this.rankRewardList.push(this.rankRewardList.length + 1);
-                    }
-                    this.loading = false;
-                    if (this.rankRewardList.length >= 60) {
-                        this.finished = true;
-                    }
-                }, 500);
-            },*/
+            }
         }
     }
     ;
