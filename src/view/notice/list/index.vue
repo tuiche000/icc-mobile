@@ -34,8 +34,8 @@
         methods: {
             queryData() {
                 query({ pageNo:1, pageSize: 10 }).then(res => {
-                    if (res.data.code === '200') {
-                        this.dataList = res.data.data.rows
+                    if (res.code === '200') {
+                        this.dataList = res.data.rows
                     }
                 })
             }

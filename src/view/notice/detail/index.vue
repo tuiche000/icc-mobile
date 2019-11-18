@@ -20,16 +20,7 @@
         },
         data() {
             return {
-                dataDetail: {
-                    "title": "这是测试",
-                    "context": "wsdds四大护法交换数据恢复速度就方便登上飞机开始分解和低俗发货,据竹海热线网，近日，杭州趣链科技有限公司成功中标光大银行" +
-                        "区块链BaaS云平台服务采购项目在此项目中，趣链科技将为光大银行提供区块链相关技术支aaS云平台服务采购项目在此项目中，趣链科技将为光大银行" +
-                        "区块链BaaS云平台服务采购项目在此项目中，趣链科技将为光大银行提供区块链相关技术支aaS云平台服务采购项目在此项目中，趣链科技将为光大银行" +
-                        "提供区块链相关技术支aaS云平台服务采购项目在此项目中，趣链科技将为光大银行提供区块链相关技术支持，帮助光大银行完善区块链BaaS平台建设。",
-                    "digest": "测试的东西",
-                    "releaseTime": "2019-11-13 14:44:00",
-                    "author": "掌声"
-                },
+                dataDetail: {},
                 detailId: ''
             };
         },
@@ -44,8 +35,7 @@
         methods: {
             getDetail() {
                 get({detailId: this.detailId}).then(res =>{
-                    console.log(res)
-                    if (res.data.code === '200') {
+                    if (res.code === '200') {
                         this.dataDetail = res.data
                     }
                 })
