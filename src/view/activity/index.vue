@@ -2,8 +2,11 @@
     <div class="activity">
         <div class="bg"></div>
         <div class="content">
+            <a v-if="lang==='zh'" class="last-notice last-zh" href="http://m.icctoro.com/shequdasai/index.html">上期获奖公告</a>
+            <a v-if="lang!=='zh'" class="last-notice" href="http://m.icctoro.com/shequdasai/index.html">Previous award announcement</a>
             <div class="header-info">
-                <img class="top" src="./images/top.png">
+                <img v-if="lang==='zh'" class="top" src="./images/top-zh.png">
+                <img v-if="lang!=='zh'" class="top" src="./images/top-cn.png">
                 <div class="time-box">
                     <van-count-down :time="dateCount">
                         <template v-slot="timeData">
@@ -17,7 +20,8 @@
                             <span class="s2">{{ timeData.seconds|fmtData(2)}}</span>
                         </template>
                     </van-count-down>
-                    <img class="countdown" src="./images/countdown.png" alt="">
+                    <img v-if="lang==='zh'" class="countdown" src="./images/countdown.png" alt="">
+                    <img v-if="lang!=='zh'" class="countdown" src="./images/countdown-cn.png" alt="">
                 </div>
             </div>
             <div v-if="JSON.stringify(inviteData) != '{}'" class="invite-info" :class="{active: animate}">
@@ -31,7 +35,8 @@
                 <span>10:09</span>
             </div>
             <div class="img-plan">
-                <img class="line" src="./images/rank.png" alt="">
+                <img v-if="lang==='zh'" class="line" src="./images/rank.png" alt="">
+                <img v-if="lang!=='zh'" class="line" src="./images/rank-cn.png" alt="">
                 <div class="day-rank" @click="changeDay"></div>
                 <div class="all-rank" @click="changeAll"></div>
             </div>
@@ -44,8 +49,10 @@
                     <span v-if="item.headImg===''"><img class="rank-head" src="./images/default-head.png" alt=""></span>
                     <span v-if="item.headImg"><img class="rank-head" :src="item.headImg" alt=""></span>
                     <span class="nickName">{{item.nickName}}</span>
-                    <span class="desc">已邀请</span>
-                    <span class="people">{{item.inviteNum}}人</span>
+                    <span v-if="lang==='zh'" class="desc">已邀请</span>
+                    <span v-if="lang!=='zh'" class="desc">Invites</span>
+                    <span v-if="lang==='zh'" class="people">{{item.inviteNum}}人</span>
+                    <span v-if="lang!=='zh'" class="people">{{item.inviteNum}}</span>
                 </div>
             </div>
             <div v-if="!showDay" class="rank-content">
@@ -57,29 +64,36 @@
                     <span v-if="item.headImg===''"><img class="rank-head" src="./images/default-head.png" alt=""></span>
                     <span  v-if="item.headImg"><img class="rank-head" :src="item.headImg" alt=""></span>
                     <span class="nickName">{{item.nickName}}</span>
-                    <span class="desc">已邀请</span>
-                    <span class="people">{{item.inviteNum}}人</span>
+                    <span v-if="lang==='zh'" class="desc">已邀请</span>
+                    <span v-if="lang!=='zh'" class="desc">Invites</span>
+                    <span v-if="lang==='zh'" class="people">{{item.inviteNum}}人</span>
+                    <span v-if="lang!=='zh'" class="people">{{item.inviteNum}}</span>
                 </div>
             </div>
             <div class="img-plan">
-                <img class="line" src="./images/daily-reward.png" alt="">
+                <img v-if="lang==='zh'" class="line" src="./images/daily-reward.png" alt="">
+                <img v-if="lang!=='zh'" class="line" src="./images/daily-reward-cn.png" alt="">
                 <van-tabs class="van-tab" swipeable>
                     <van-tab class="van-item" v-for="(item, index) in rankRewardList" :key="index" :title="item.inviteDate|fmtDate('MM.dd')">
                         <span v-if="item.headImg===''"><img class="head" src="./images/default-head.png" alt=""></span>
                         <span v-else><img class="head" :src="item.headImg" alt=""></span>
                         <span>{{item.nickName}}</span>
-                        <span>邀请人数</span>
+                        <span v-if="lang==='zh'">邀请人数</span>
+                        <span v-if="lang!=='zh'">Invites</span>
                         <span>{{item.inviteNum}} </span>
                     </van-tab>
                 </van-tabs>
             </div>
             <div class="img-plan">
-                <img class="line" src="./images/award.png" alt="">
+                <img v-if="lang==='zh'" class="line" src="./images/award.png" alt="">
+                <img v-if="lang!=='zh'" class="line" src="./images/award-cn.png" alt="">
             </div>
             <div class="img-plan">
-                <img class="line" src="./images/rules.png" alt="">
+                <img v-if="lang==='zh'" class="line" src="./images/rules.png" alt="">
+                <img v-if="lang!=='zh'" class="line" src="./images/rules-cn.png" alt="">
             </div>
-            <div class="explain"> *本次活动最终解释权归西岸社区所有</div>
+            <div v-if="lang==='zh'" class="explain"> *本次活动最终解释权归西岸社区所有</div>
+            <div v-if="lang!=='zh'" class="explain"> West Coast Strategy reserves all the right for the final explanation of this event</div>
         </div>
     </div>
 </template>
@@ -110,6 +124,7 @@
                 rankRewardList: [],
                 showDay: true,
                 animate: false,//最新邀请轮播动画
+                lang:''
             };
         },
         created() {
@@ -117,7 +132,13 @@
             this.getInviteInfo()
             this.getRankReward()
             this.changeDay()
-            this.getMyData()
+            let lang = navigator.language || navigator.userLanguage;
+            lang = lang.substr(0, 2); //截取lang前2位字符
+            if (lang == "zh") {
+                this.lang = "zh";
+            } else {
+                this.lang = "en";
+            }
         },
         methods: {
             queryData() {
@@ -186,6 +207,22 @@
 
         .content {
             position: relative;
+            .last-notice{
+                position: absolute;
+                width: 220px;
+                height: 24px;
+                line-height: 24px;
+                top: 20px;
+                background: rgba(255, 255, 255, 0.2);
+                border-radius: 0px 20px 20px 0px;
+                color: #fff;
+                padding-left: 5px;
+                font-size: 14px;
+                z-index: 3;
+            }
+            .last-zh {
+                width: 100px;
+            }
             .header-info {
                 position: relative;
                 .top {
@@ -281,6 +318,11 @@
                     .nickName {
                         position: absolute;
                         left: 90px;
+                        width: 110px;
+                        display: block;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        white-space: nowrap;
                     }
                     .number {
                         position: absolute;
@@ -288,7 +330,7 @@
                     }
                     .desc {
                         position: absolute;
-                        left: 230px;
+                        left: 200px;
                     }
                     .rank {
                         position: absolute;
