@@ -1,5 +1,6 @@
 module.exports = {
     lintOnSave: false,
+
     devServer: {
         proxy: {
             '/api': {
@@ -8,5 +9,7 @@ module.exports = {
                 changeOrigin: true
             }
         }
-    }
+    },
+
+    outputDir: 'icc-mobile'
 }
