@@ -27,11 +27,11 @@
             <div v-if="JSON.stringify(inviteData) != '{}'" class="invite-info" :class="{active: animate}">
                 <span v-if="inviteData.headImg===''"><img class="head" src="./images/default-head.png" alt=""></span>
                 <span v-else><img class="head" :src="inviteData.headImg" alt=""></span>
-                <span>{{inviteData.nickName}}</span>
+                <!-- <span>{{inviteData.nickName}}</span> -->
                 <span class="invite">邀请了</span>
                 <span v-if="inviteData.inviteHeadImg===''"><img class="head" src="./images/default-head.png" alt=""></span>
                 <span v-else><img class="head" :src="inviteData.inviteHeadImg" alt=""></span>
-                <span>{{inviteData.inviteNickName}}</span>
+                <!-- <span>{{inviteData.inviteNickName}}</span> -->
                 <span>{{inviteData.date}}</span>
                 <!-- <span>10:09</span> -->
             </div>
