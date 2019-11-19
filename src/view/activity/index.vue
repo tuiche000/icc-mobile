@@ -32,11 +32,13 @@
                 <span v-if="inviteData.inviteHeadImg===''"><img class="head" src="./images/default-head.png" alt=""></span>
                 <span v-else><img class="head" :src="inviteData.inviteHeadImg" alt=""></span>
                 <span>{{inviteData.inviteNickName}}</span>
-                <span>10:09</span>
+                <!-- <span>10:09</span> -->
             </div>
             <div class="img-plan">
-                <img v-if="lang==='zh'" class="line" src="./images/rank.png" alt="">
-                <img v-if="lang!=='zh'" class="line" src="./images/rank-cn.png" alt="">
+                <img v-if="lang==='zh' && active === 0" class="line" src="./images/rank.png" alt="">
+                <img v-if="lang==='zh' && active === 1" class="line" src="./images/rank2-cn.png" alt="">
+                <img v-if="lang!=='zh' && active === 0" class="line" src="./images/rank-cn.png" alt="">
+                <img v-if="lang!=='zh' && active === 1" class="line" src="./images/rank.png" alt="">
                 <div class="day-rank" @click="changeDay"></div>
                 <div class="all-rank" @click="changeAll"></div>
             </div>
@@ -82,6 +84,8 @@
                         <span v-if="lang!=='zh'">Invites</span>
                         <span>{{item.inviteNum}} </span>
                     </van-tab>
+                    <div v-if="lang==='zh' && rankRewardList.length === 0">虚位以待</div>
+                    <div v-if="lang!=='zh' && rankRewardList.length === 0">Waiting for nothing</div>
                 </van-tabs>
             </div>
             <div class="img-plan">
@@ -115,6 +119,7 @@
 
         data() {
             return {
+                active: 0,
                 dataList: [],
                 inviteData: {},
                 dateCount: 0,
@@ -151,6 +156,7 @@
             changeDay() {
                 RANK_DAILY().then(res =>{
                     if (res.code === '200') {
+                        this.active = 0
                         this.showDay = true
                         this.rankDayList = res.data.rows
                     }
@@ -159,6 +165,7 @@
             changeAll() {
                 RANK_COUNT().then(res =>{
                     if (res.code === '200') {
+                        this.active = 1
                         this.showDay = false
                         this.rankAllList = res.data.rows
                     }
