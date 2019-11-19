@@ -32,6 +32,7 @@
                 <span v-if="inviteData.inviteHeadImg===''"><img class="head" src="./images/default-head.png" alt=""></span>
                 <span v-else><img class="head" :src="inviteData.inviteHeadImg" alt=""></span>
                 <span>{{inviteData.inviteNickName}}</span>
+                <span>{{inviteData.date}}</span>
                 <!-- <span>10:09</span> -->
             </div>
             <div class="img-plan">
