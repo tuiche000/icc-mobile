@@ -1,5 +1,5 @@
-// const autoprefixer = require('autoprefixer');
-// const pxtorem = require('postcss-pxtorem');
+const autoprefixer = require('autoprefixer');
+const pxtorem = require('postcss-pxtorem');
 
 module.exports = {
     lintOnSave: false,
@@ -25,20 +25,16 @@ module.exports = {
                     // orange: '#f08d49',
                     dark: '#999999'
                 }
+            },
+            postcss: {
+                plugins: [
+                    autoprefixer(),
+                    pxtorem({
+                        rootValue: 20,
+                        propList: ['*']
+                    })
+                ]
             }
         }
     },
-    // css: {
-    //     loaderOptions: {
-    //         postcss: {
-    //             plugins: [
-    //                 autoprefixer(),
-    //                 pxtorem({
-    //                     rootValue: 32,
-    //                     propList: ['*']
-    //                 })
-    //             ]
-    //         }
-    //     }
-    // }
 }

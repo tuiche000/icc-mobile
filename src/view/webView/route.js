@@ -6,7 +6,7 @@ export default {
       name: 'webView-tibi',
       path: 'tibi/choose',
       meta: { title: '提币' },
-      component: () => import('@/view/webView/tibi')
+      component: () => import('@/view/webView/tibi/choose')
     },
     {
       name: 'webView-tibi',

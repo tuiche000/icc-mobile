@@ -9,66 +9,165 @@
     </van-panel>-->
     <div class="tibi">
       <div class="header padding flex justify-between">
-        <div>交易所名称</div>
-        <div>币币账户</div>
+        <div class="flex align-center">
+          <van-image round width="32px" height="32px" fit="cover" :src="require('./images/logo.png')" />
+          <span class="margin-left-xs">交易所名称</span>
+        </div>
+        <div class="flex align-center">币币账户</div >
       </div>
       <div class="footer bg-white">
         <div class="padding flex justify-between">
           <div>提币数量</div>
           <div>免手续费</div>
         </div>
-        <div class="padding flex justify-center">
-          <div>BTC</div>
-          <van-field readonly clickable :value="value" @touchstart.native.stop="show = true" />
+        <div class="padding flex justify-between">
+          <div class="flex align-center">BTC</div>
+          <div class="margin-left flex-sub"><van-field input-align="right" readonly clickable :value="value" @touchstart.native.stop="show = true" /></div>  
         </div>
         <van-divider />
         <div class="padding">
           <div>
-            可提: 0.00  <span class="margin-left-xs">全部</span>
+            可提:
+            <span>{{data.canTransferAmount}}</span>
+            <span class="margin-left-xs all" @click="value = data.canTransferAmount">全部</span>
           </div>
-          <div class="padding"><van-button round type="info" size="large">确定</van-button></div>
+          <div class="padding">
+            <van-button round type="info" size="large" @click="confirm">确定</van-button>
+          </div>
         </div>
       </div>
     </div>
 
-    <van-number-keyboard v-model="value" :show="show" :maxlength="20" @blur="show = false" />
-
+    <van-number-keyboard
+      v-model="value"
+      :show="show"
+      extra-key="."
+      :maxlength="20"
+      @blur="show = false"
+    />
 
     <div class="bot text-dark">提币成功后，预计将在24H内到账</div>
+
+    <van-dialog
+      v-model="showDialog"
+      title="输入支付密码"
+      show-cancel-button
+      @confirm="submit"
+      @cancel="cancel"
+      @closed="passWord = ''"
+    >
+      <div class="padding">
+        <van-password-input
+          :value="passWord"
+          info="密码为 6 位数字"
+          :focused="showKeyboard"
+          @focus="showKeyboard = true"
+        />
+      </div>
+    </van-dialog>
+
+    <van-number-keyboard
+      :show="showKeyboard"
+      @input="onInput"
+      @delete="onDelete"
+      @blur="showKeyboard = false"
+      :z-index="3000"
+    />
   </div>
 </template>
 
 <script>
-import { Panel, Divider, NumberKeyboard, Field, Button } from "vant";
+import {
+  Panel,
+  Divider,
+  NumberKeyboard,
+  Field,
+  Button,
+  Dialog,
+  PasswordInput,
+  Image
+} from "vant";
+import {
+  withdraw_data,
+  withdraw_transfer,
+  account_accountTransferUUID
+} from "./services/index";
 
 export default {
   components: {
     [Panel.name]: Panel,
+    [Image.name]: Image,
     [Divider.name]: Divider,
     [NumberKeyboard.name]: NumberKeyboard,
+    [PasswordInput.name]: PasswordInput,
     [Field.name]: Field,
     [Button.name]: Button,
+    [Dialog.Component.name]: Dialog.Component
   },
 
   data() {
     return {
       checked: true,
       show: false,
-      value: ""
+      showDialog: false,
+      showKeyboard: false,
+      value: "",
+      passWord: "",
+      data: {},
+      accountTransferUUID: ""
     };
   },
 
+  created() {
+    this.GET_withdraw_data({
+      currency: "BTC"
+    });
+    this.GET_account_accountTransferUUID();
+  },
+
   methods: {
-    formatPrice() {
-      return "¥" + (this.goods.price / 100).toFixed(2);
+    async GET_withdraw_data(json) {
+      let res = await withdraw_data(json);
+      this.data = res.data;
     },
-
-    onClickCart() {
-      this.$router.push("cart");
+    async POST_withdraw_transfer(json) {
+      return await withdraw_transfer(json);
     },
-
-    sorry() {
-      Toast("暂无后续逻辑~");
+    async GET_account_accountTransferUUID() {
+      let res = await account_accountTransferUUID();
+      this.accountTransferUUID = res.data;
+    },
+    onInput(key) {
+      this.passWord = (this.passWord + key).slice(0, 6);
+    },
+    onDelete() {
+      this.passWord = this.passWord.slice(0, this.passWord.length - 1);
+    },
+    confirm() {
+      this.showDialog = true;
+      this.showKeyboard = true;
+    },
+    cancel() {
+      this.showDialog = false;
+      this.passWord = "";
+    },
+    async submit() {
+      let { accountTransferUUID, value, passWord } = this;
+      const res = await this.POST_withdraw_transfer({
+        toAccountType: "1003",
+        currency: "BTC",
+        amount: parseFloat(value),
+        requestId: accountTransferUUID,
+        passWord: passWord
+      });
+      if (res.code === "200") {
+        this.$router.push({
+          path: "/webView/tibi/success",
+          query: {
+            data: res.data
+          }
+        });
+      }
     }
   }
 };
@@ -78,6 +177,9 @@ export default {
 .tibi {
   border-radius: 10px;
   padding: 15px;
+}
+.all {
+  color: #2688D0;
 }
 .header {
   background: rgba(251, 251, 251, 1);

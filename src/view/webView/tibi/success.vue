@@ -11,12 +11,12 @@
               提币成功
             </div>
             <div class="margin-top-sm">
-              <span>0.005</span>
+              <span>{{data}}</span>
               <span>BTC</span>
             </div>
             <div class="margin-top-sm">
-              <span>交易所名称</span>
-              <span>账户名称</span>
+              <span>ICNCDE</span>
+              <span class="margin-left">账户名称</span>
             </div>
           </div>
           <div class="margin-top-xl flex align-center flex-direction">
@@ -43,22 +43,16 @@ export default {
 
   data() {
     return {
-      checked: true
+      data: ''
     };
   },
 
+  created() {
+    this.data = this.$route.query.data
+  },
+
   methods: {
-    formatPrice() {
-      return "¥" + (this.goods.price / 100).toFixed(2);
-    },
 
-    onClickCart() {
-      this.$router.push("cart");
-    },
-
-    sorry() {
-      Toast("暂无后续逻辑~");
-    }
   }
 };
 </script>
