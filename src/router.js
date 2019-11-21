@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import webView from '@/view/webView/route';
 
 Vue.use(Router);
-
 const routes = [
   {
     path: '*',
@@ -31,7 +31,7 @@ const routes = [
   },
   {
     name: 'goods',
-    component: () => import('./view/goods'),
+    component: () => import('@/view/goods'),
     meta: {
       title: '商品详情'
     }
@@ -56,17 +56,31 @@ const routes = [
     meta: {
       title: '邀请活动'
     }
-  }
+  },
+  { ...webView }
 ];
 
 // add route path
+// function next(routes) {
+//   routes.forEach(route => {
+//     if (route.children) {
+//       route.path = route.path || '/' + (route.name || '');
+//       next(route.children)
+//     } else {
+//       route.path = route.path || '/' + (route.name || '');
+//     }
+//   });
+// }
+// next(routes)
 routes.forEach(route => {
   route.path = route.path || '/' + (route.name || '');
-});
+})
+console.log(routes)
 
 const router = new Router({ routes });
 
 router.beforeEach((to, from, next) => {
+  console.log('to:', to)
   const title = to.meta && to.meta.title;
   if (title) {
     document.title = title;

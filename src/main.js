@@ -3,6 +3,7 @@ import App from './App';
 import { router } from './router';
 import baseStyle from './sytles/common.less';
 import * as filters from './filters';
+// import './utils/rem'
 Vue.use(baseStyle)
 
 Object.keys(filters).forEach(key => {

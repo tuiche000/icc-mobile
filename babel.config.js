@@ -1,3 +1,5 @@
+// const path = require('path');
+
 module.exports = {
   presets: [
     '@vue/cli-plugin-babel/preset'
@@ -6,7 +8,11 @@ module.exports = {
     ['import', {
       libraryName: 'vant',
       libraryDirectory: 'es',
-      style: true
+      style: name => `${name}/style/less`
     }, 'vant']
-  ]
+  ],
+  // chainWebpack: (config) => {
+  //   config.resolve.alias
+  //     .set('webView', path.resolve(__dirname, './src'))
+  // },
 }
