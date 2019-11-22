@@ -10,10 +10,16 @@
     <div class="tibi">
       <div class="header padding flex justify-between">
         <div class="flex align-center">
-          <van-image round width="32px" height="32px" fit="cover" :src="require('./images/logo.png')" />
+          <van-image
+            round
+            width="32px"
+            height="32px"
+            fit="cover"
+            :src="require('./images/logo.png')"
+          />
           <span class="margin-left-xs">交易所名称</span>
         </div>
-        <div class="flex align-center">差价账户</div >
+        <div class="flex align-center">差价账户</div>
       </div>
       <div class="footer bg-white">
         <div class="padding flex justify-between">
@@ -22,7 +28,15 @@
         </div>
         <div class="padding flex justify-between">
           <div class="flex align-center">BTC</div>
-          <div class="margin-left flex-sub"><van-field input-align="right" readonly clickable :value="value" @touchstart.native.stop="show = true" /></div>  
+          <div class="margin-left flex-sub">
+            <van-field
+              input-align="right"
+              readonly
+              clickable
+              :value="value"
+              @touchstart.native.stop="show = true"
+            />
+          </div>
         </div>
         <van-divider />
         <div class="padding">
@@ -145,15 +159,15 @@ export default {
       this.passWord = this.passWord.slice(0, this.passWord.length - 1);
     },
     confirm() {
-      if (this.value == '') {
-        Notify({ type: 'warning', message: '请输入提币金额' });
-        return
+      if (this.value == "") {
+        Notify({ type: "warning", message: "请输入提币金额" });
+        return;
       }
-      if (this.value > this.data.canTransferAmount) {
-        Notify({ type: 'warning', message: '超出可提额度' });
-        return
+      if (parseFloat(this.value) > parseFloat(this.data.canTransferAmount)) {
+        Notify({ type: "warning", message: "超出可提额度" });
+        return;
       }
-      
+
       this.showDialog = true;
       this.showKeyboard = true;
     },
@@ -162,6 +176,10 @@ export default {
       this.passWord = "";
     },
     async submit() {
+      if (this.value.length < 6) {
+        Notify({ type: "warning", message: "请输入六位密码" });
+        return;
+      }
       let { accountTransferUUID, value, passWord } = this;
       const res = await this.POST_withdraw_transfer({
         toAccountType: "1003",
@@ -189,7 +207,7 @@ export default {
   padding: 15px;
 }
 .all {
-  color: #2688D0;
+  color: #2688d0;
 }
 .header {
   background: rgba(251, 251, 251, 1);
