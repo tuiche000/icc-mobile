@@ -145,6 +145,10 @@ export default {
       this.passWord = this.passWord.slice(0, this.passWord.length - 1);
     },
     confirm() {
+      if (this.value == '') {
+        Notify({ type: 'warning', message: '请输入提币金额' });
+        return
+      }
       if (this.value > this.data.canTransferAmount) {
         Notify({ type: 'warning', message: '超出可提额度' });
         return
