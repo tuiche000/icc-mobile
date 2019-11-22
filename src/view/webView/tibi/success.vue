@@ -18,7 +18,7 @@
             </div>
           </div>
           <div class="margin-top-xl flex align-center flex-direction">
-            <van-button round type="info" :disabled="havaApp==0" size="large" @click="toApp">前往查看</van-button>
+            <van-button round type="info" :disabled="haveApp=='0'" size="large" @click="toApp">前往查看</van-button>
           </div>
         </div>
       </div>
@@ -42,13 +42,13 @@ export default {
   data() {
     return {
       data: "",
-      havaApp: 0,
+      haveApp: '0',
     };
   },
 
   created() {
     this.data = this.$route.query.data;
-    this.havaApp = window.JSBridge.invoke("haveApp", res => {
+    this.haveApp = window.JSBridge.invoke("haveApp", {}, res => {
       this.havaApp = res;
     });
   },

@@ -22,7 +22,6 @@ export default {
     let token = window.JSBridge.invoke("getToken", {}, function(res) {
       window.localStorage.setItem("token", res.token);
     });
-    console.log(token);
     window.localStorage.setItem("token", token);
     // let token = window.JSBridge.invoke("getToken");
     // console.log(token);

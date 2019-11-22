@@ -13,7 +13,7 @@
           <van-image round width="32px" height="32px" fit="cover" :src="require('./images/logo.png')" />
           <span class="margin-left-xs">交易所名称</span>
         </div>
-        <div class="flex align-center">币币账户</div >
+        <div class="flex align-center">差价账户</div >
       </div>
       <div class="footer bg-white">
         <div class="padding flex justify-between">
@@ -85,7 +85,8 @@ import {
   Button,
   Dialog,
   PasswordInput,
-  Image
+  Image,
+  Notify
 } from "vant";
 import {
   withdraw_data,
@@ -144,6 +145,11 @@ export default {
       this.passWord = this.passWord.slice(0, this.passWord.length - 1);
     },
     confirm() {
+      if (this.value > this.data.canTransferAmount) {
+        Notify({ type: 'warning', message: '超出可提额度' });
+        return
+      }
+      
       this.showDialog = true;
       this.showKeyboard = true;
     },

@@ -26,7 +26,7 @@
             </div>
           </div>
           <div class="margin-top-xl flex align-center flex-direction">
-            <van-button round type="info" size="large" @click="confirm">确定</van-button>
+            <van-button round type="info" size="large" @click="confirm" :disabled="!checked">确定</van-button>
             <div class="margin-top-sm">更多交易所正在洽谈</div>
           </div>
         </div>

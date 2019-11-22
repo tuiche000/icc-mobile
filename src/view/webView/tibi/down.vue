@@ -38,9 +38,6 @@ export default {
   },
 
   created() {
-    this.havaApp = window.JSBridge.invoke("haveApp", {}, res => {
-      this.havaApp = res;
-    });
   },
 
   methods: {
