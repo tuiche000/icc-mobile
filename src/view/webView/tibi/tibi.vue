@@ -167,10 +167,6 @@ export default {
         Notify({ type: "warning", message: "超出可提额度" });
         return;
       }
-      if (this.value.length < 6) {
-        Notify({ type: "warning", message: "请输入六位密码" });
-        return;
-      }
 
       this.showDialog = true;
       this.showKeyboard = true;
@@ -181,6 +177,10 @@ export default {
     },
     async submit() {
       let { accountTransferUUID, value, passWord } = this;
+      if (value.length < 6) {
+        Notify({ type: "warning", message: "请输入六位密码" });
+        return;
+      }
       const res = await this.POST_withdraw_transfer({
         toAccountType: "1003",
         currency: "BTC",
