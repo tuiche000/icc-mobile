@@ -7,9 +7,7 @@
             <van-icon name="success" color="#fff" size="40" />
           </div>
           <div class="margin-top-sm padding-bottom">
-            <div class="margin-top-sm">
-              提币成功
-            </div>
+            <div class="margin-top-sm">提币成功</div>
             <div class="margin-top-sm">
               <span>{{data}}</span>
               <span>BTC</span>
@@ -20,7 +18,7 @@
             </div>
           </div>
           <div class="margin-top-xl flex align-center flex-direction">
-            <van-button round type="info" size="large">前往查看</van-button>
+            <van-button round type="info" :disabled="havaApp==0" size="large" @click="toApp">前往查看</van-button>
           </div>
         </div>
       </div>
@@ -43,16 +41,24 @@ export default {
 
   data() {
     return {
-      data: ''
+      data: "",
+      havaApp: 0,
     };
   },
 
   created() {
-    this.data = this.$route.query.data
+    this.data = this.$route.query.data;
+    this.havaApp = window.JSBridge.invoke("haveApp", res => {
+      this.havaApp = res;
+    });
   },
 
   methods: {
-
+    toApp() {
+      window.JSBridge.invoke("toApp", {
+        url: "http://m.icncde.com/#/down"
+      });
+    }
   }
 };
 </script>
@@ -69,6 +75,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #0591CC;
+  background: #0591cc;
 }
 </style>

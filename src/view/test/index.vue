@@ -1,6 +1,10 @@
 <template>
   <div class="goods">
     <van-button type="info" @click="getUserInfo">获取用户token</van-button>
+    <br />
+    <van-button type="info" @click="getUserInfo2">Android获取用户token</van-button>
+    <br />
+    <van-button type="info" @click="getUserInfo3">点击native 调取h5方法</van-button>
   </div>
 </template>
 
@@ -19,19 +23,22 @@ export default {
     };
   },
   created() {
-    console.log(window.JSBridge);
+    // console.log(window.JSBridge);
   },
   methods: {
     getUserInfo() {
-      // var str = window.jsObj
-      // alert(JSON.stringify(str));
-      console.log(window);
-      window.jsObj.HtmlcallJava();
-      // window.alert(111)
-      // window.nativeBridge.postMessage('getUserInfo');
-      // window.webkit.messageHandlers.nativeBridge.postMessage('getUserInfo');
-      // window.postBridgeMessage('getUserInfo')
-      // window.JSBridge.invoke('getUserInfo')
+      window.JSBridge.invoke("getToken", function (res) {
+        alert(res.token)
+      });
+      // alert(token)
+    },
+    getUserInfo2() {
+      let token = window.JSBridge.invoke("getToken");
+      console.log(token);
+    },
+    getUserInfo3() {
+      // window.JSBridge.receiveMessage('asdasdsd')
+      window.JSBridge.invoke("aaa");
     }
   }
 };

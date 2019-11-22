@@ -6,7 +6,7 @@ Vue.use(Router);
 const routes = [
   {
     path: '*',
-    redirect: '/goods'
+    redirect: '/webView/tibi/choose'
   },
   {
     name: 'test',
