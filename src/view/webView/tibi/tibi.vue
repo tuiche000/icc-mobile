@@ -19,7 +19,7 @@
           />
           <span class="margin-left-xs">交易所名称</span>
         </div>
-        <div class="flex align-center">差价账户</div>
+        <div class="flex align-center">差价合约账户</div>
       </div>
       <div class="footer bg-white">
         <div class="padding flex justify-between">
