@@ -27,7 +27,7 @@ export default {
   methods: {
     init() {
       window.JSBridge.invoke("getToken", {}, function(res) {
-        if (res == "zh") {
+        if (res == "zh-cn") {
           this.$i18n.locale = "zh-CN";
         } else {
           this.$i18n.locale = "en-US";
