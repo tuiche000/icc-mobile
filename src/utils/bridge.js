@@ -41,7 +41,7 @@
             data: data || {},
             callbackId: thisId // 传到 Native 端
           });
-          break;
+          return;
         case 'Android':
           console.log(JSON.stringify({
             bridgeName: bridgeName,
@@ -56,14 +56,9 @@
         // break;
         default:
           //pc
-          break;
+          return;
       }
     },
-    // receiveMessage: function (str) {
-    //   console.log(str)
-    //   alert(str)
-    // },
-
     receiveMessage: function (msg) {
       let msg3 = JSON.parse(msg)
       let { bridgeName, data, callbackId, responstId } = msg3

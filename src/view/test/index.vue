@@ -2,23 +2,24 @@
   <div class="goods">
     <van-button type="info" @click="getUserInfo">获取用户token</van-button>
     <br />
-    <van-button type="info" @click="getUserInfo2">Android获取用户token</van-button>
-    <br />
-    <van-button type="info" @click="getUserInfo3">点击native 调取h5方法</van-button>
+    <van-field v-model="value" placeholder="请输入页面code" />
+    <van-button type="info" @click="gotoNative">跳转native页面</van-button>
   </div>
 </template>
 
 <script>
-import { Button } from "vant";
+import { Button, Field } from "vant";
 require("../../utils/bridge");
 
 export default {
   components: {
-    [Button.name]: Button
+    [Button.name]: Button,
+    [Field.name]: Field,
   },
 
   data() {
     return {
+      value: '',
       userInfo: {}
     };
   },
@@ -31,15 +32,14 @@ export default {
       window.JSBridge.invoke("getToken", function(res) {
         alert(res.token);
       });
-      // alert(token)
     },
-    getUserInfo2() {
-      let token = window.JSBridge.invoke("getToken");
-      console.log(token);
-    },
-    getUserInfo3() {
-      // window.JSBridge.receiveMessage('asdasdsd')
-      window.JSBridge.invoke("aaa");
+    gotoNative() {
+      window.JSBridge.invoke('gotoNative', {
+        page: this.value,
+        params: {
+          text: '1111'
+        }
+      });
     }
   }
 };
