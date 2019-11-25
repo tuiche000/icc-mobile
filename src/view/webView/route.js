@@ -5,19 +5,19 @@ export default {
     {
       name: 'webView-tibi',
       path: 'tibi/choose',
-      meta: { title: '' },
+      meta: { title: 'Withdraw' },
       component: () => import('@/view/webView/tibi/choose')
     },
     {
       name: 'webView-tibi',
       path: 'tibi/tibi',
-      meta: { title: '' },
+      meta: { title: 'Withdraw' },
       component: () => import('@/view/webView/tibi/tibi')
     },
     {
       name: 'webView-tibi-success',
       path: 'tibi/success',
-      meta: { title: '' },
+      meta: { title: 'success' },
       component: () => import('@/view/webView/tibi/success')
     },
   ]
