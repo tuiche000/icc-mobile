@@ -1,3 +1,0 @@
-export default {
-  description: 'ICNCDE (Global Asset Derivatives Trading Platform), a global full-category investment platform connecting digital assets with traditional financial assets provides you a convenient and safe online investment. No matter where you are, ICNCDE allows you to use digital assets to buy products such as stocks of world-renowned listed companies, national financial index, commodity futures and digital asset contract trading and etc.'
-}

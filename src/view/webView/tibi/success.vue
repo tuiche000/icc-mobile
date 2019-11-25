@@ -7,18 +7,19 @@
             <van-icon name="success" color="#fff" size="40" />
           </div>
           <div class="margin-top-sm padding-bottom">
-            <div class="margin-top-sm">提币成功</div>
+            <div class="margin-top-sm">{{$t('webView.succ_ok')}}</div>
             <div class="margin-top-sm">
               <span>{{data}}</span>
               <span>BTC</span>
             </div>
-            <div class="margin-top-sm">
+            <div class="margin-top-sm flex justify-center">
               <span>ICNCDE</span>
-              <span class="margin-left">账户名称</span>
+              <img class="margin-lr-sm" src="./images/arror-right.png" alt="">
+              <span>{{$t('webView.succ_accountName')}}</span>
             </div>
           </div>
           <div class="margin-top-xl flex align-center flex-direction">
-            <van-button round type="info" :disabled="haveApp=='0'" size="large" @click="toApp">前往查看</van-button>
+            <van-button round type="info" :disabled="haveApp=='0'" size="large" @click="toApp">{{$t('webView.succ_goto')}}</van-button>
           </div>
         </div>
       </div>

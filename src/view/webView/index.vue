@@ -14,19 +14,31 @@
 
 <script>
 import { NavBar } from "vant";
+import { Locale } from 'vant';
+import enUS from 'vant/lib/locale/lang/en-US';
 export default {
   components: {
     [NavBar.name]: NavBar
   },
   created() {
-    let token = window.JSBridge.invoke("getToken", {}, function(res) {
-      window.localStorage.setItem("token", res.token);
-    });
-    window.localStorage.setItem("token", token);
-    // let token = window.JSBridge.invoke("getToken");
-    // console.log(token);
+    this.init()
   },
   methods: {
+    init() {
+      let lang = navigator.language || navigator.userLanguage;
+      lang = lang.substr(0, 2); //截取lang前2位字符
+      if (lang == "zh") {
+        this.$i18n.locale = "zh-CN";
+      } else {
+        this.$i18n.locale = "en-US";
+        Locale.use('en-US', enUS);
+      }
+
+      let token = window.JSBridge.invoke("getToken", {}, function(res) {
+        window.localStorage.setItem("token", res.token);
+      });
+      window.localStorage.setItem("token", token);
+    },
     onClickLeft() {},
     onClickRight() {}
   }

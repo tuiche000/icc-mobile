@@ -3,16 +3,23 @@
     <div class="down">
       <div class="bg-white">
         <div>
-          <div class="padding flex justify-between align-center">
-            <div class="text-df">ICNCDE</div>
+          <div class="padding-lr padding-top flex justify-between align-center">
+            <div class="text-df flex align-center">
+              <van-image
+                width="40px"
+                height="40px"
+                round
+                fit="cover"
+                :src="require('./images/logo.png')"
+              />
+              <span class="margin-left-xs">ICNCDE</span>
+            </div>
             <div>
-              <van-tag type="primary" round size="large" @click="toApp">下载</van-tag>
+              <van-tag type="primary" round size="large" @click="toApp">{{$t('webView.down_down')}}</van-tag>
             </div>
           </div>
           <van-divider />
-          <div
-            class="padding"
-          >ICNCDE（全球资产衍生品交易平台），连通数字资产与传统金融资产的全球化全品类投资平台，让您能够便捷、安全的进行在线投资。不管您身在何处，都能通过ICNCDE用数字资产买到全球知名上市公司股票、国家金融指数、商品期货以及数字资产合约交易等产品</div>
+          <div class="padding-lr padding-bottom">{{$t('webView.down_desc')}}</div>
         </div>
       </div>
     </div>
@@ -20,12 +27,13 @@
 </template>
 
 <script>
-import { Checkbox, Button, Divider, Tag } from "vant";
+import { Checkbox, Button, Divider, Tag, Image } from "vant";
 
 export default {
   components: {
     [Checkbox.name]: Checkbox,
     [Button.name]: Button,
+    [Image.name]: Image,
     [Divider.name]: Divider,
     [Tag.name]: Tag
   },
@@ -38,6 +46,8 @@ export default {
   },
 
   created() {
+    console.log(this.$i18n);
+    // console.log(this.$i18n.messages.)
   },
 
   methods: {

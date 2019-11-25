@@ -17,14 +17,14 @@
             fit="cover"
             :src="require('./images/logo.png')"
           />
-          <span class="margin-left-xs">交易所名称</span>
+          <span class="margin-left-xs">ICNCDE</span>
         </div>
-        <div class="flex align-center">差价合约账户</div>
+        <div class="flex align-center">{{$t('webView.tibi_accountName')}}</div>
       </div>
       <div class="footer bg-white">
         <div class="padding flex justify-between">
-          <div>提币数量</div>
-          <div>免手续费</div>
+          <div>{{$t('webView.tibi_number')}}</div>
+          <div>{{$t('webView.tibi_free')}}</div>
         </div>
         <div class="padding flex justify-between">
           <div class="flex align-center">BTC</div>
@@ -34,6 +34,9 @@
               readonly
               clickable
               :value="value"
+              :error-message="error_message"
+              error-message-align="right"
+              maxlength="8"
               @touchstart.native.stop="show = true"
             />
           </div>
@@ -41,12 +44,15 @@
         <van-divider />
         <div class="padding">
           <div>
-            可提:
+            {{$t('webView.tibi_have')}}:
             <span>{{data.canTransferAmount}}</span>
-            <span class="margin-left-xs all" @click="value = data.canTransferAmount">全部</span>
+            <span
+              class="margin-left-xs all"
+              @click="value = data.canTransferAmount"
+            >{{$t('webView.tibi_all')}}</span>
           </div>
           <div class="padding">
-            <van-button round type="info" size="large" @click="confirm">确定</van-button>
+            <van-button round type="info" size="large" @click="confirm">{{$t('confirm')}}</van-button>
           </div>
         </div>
       </div>
@@ -60,23 +66,18 @@
       @blur="show = false"
     />
 
-    <div class="bot text-dark">提币成功后，预计将在24H内到账</div>
+    <div class="bot text-dark">{{$t('webView.tibi_tips')}}</div>
 
     <van-dialog
       v-model="showDialog"
-      title="输入支付密码"
+      :title="$t('webView.tibi_dialogtitle')"
       show-cancel-button
       @confirm="submit"
       @cancel="cancel"
       @closed="passWord = ''"
     >
       <div class="padding">
-        <van-password-input
-          :value="passWord"
-          info="密码为 6 位数字"
-          :focused="showKeyboard"
-          @focus="showKeyboard = true"
-        />
+        <van-password-input :value="passWord" :focused="showKeyboard" @focus="showKeyboard = true" />
       </div>
     </van-dialog>
 
@@ -133,6 +134,15 @@ export default {
     };
   },
 
+  computed: {
+    error_message: function() {
+      let patt = /^[0-9]+(.[0-9]{0,8})?$/;
+      return patt.test(this.value) || this.value == ""
+        ? ""
+        : this.$t("webView.tibi_verify.length");
+    }
+  },
+
   created() {
     this.GET_withdraw_data({
       currency: "BTC"
@@ -160,11 +170,17 @@ export default {
     },
     confirm() {
       if (this.value == "") {
-        Notify({ type: "warning", message: "请输入提币金额" });
+        Notify({
+          type: "warning",
+          message: this.$t("webView.tibi_verify.amount")
+        });
         return;
       }
       if (parseFloat(this.value) > parseFloat(this.data.canTransferAmount)) {
-        Notify({ type: "warning", message: "超出可提额度" });
+        Notify({
+          type: "warning",
+          message: this.$t("webView.tibi_verify.outride")
+        });
         return;
       }
 
@@ -180,7 +196,10 @@ export default {
       let crypto = require("crypto");
 
       if (passWord.length < 6) {
-        Notify({ type: "warning", message: "请输入六位密码" });
+        Notify({
+          type: "warning",
+          message: this.$t("webView.tibi_verify.password")
+        });
         return;
       }
       function cryptPwd(password) {
@@ -188,6 +207,7 @@ export default {
         return md5.update(password).digest("hex");
       }
       let cryptedPassword = cryptPwd(passWord);
+      console.log(cryptedPassword);
 
       const res = await this.POST_withdraw_transfer({
         toAccountType: "1003",
