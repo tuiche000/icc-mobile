@@ -50,7 +50,7 @@ export default {
   created() {
     this.data = this.$route.query.data;
     this.haveApp = window.JSBridge.invoke("haveApp", {}, res => {
-      this.havaApp = res;
+      this.haveApp = res;
     });
   },
 
