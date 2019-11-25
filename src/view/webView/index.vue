@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     init() {
-      window.JSBridge.invoke("getToken", {}, function(res) {
+      window.JSBridge.invoke("getLanguage", {}, res => {
         if (res == "zh-cn") {
           this.$i18n.locale = "zh-CN";
         } else {
@@ -36,10 +36,9 @@ export default {
         }
       });
 
-      let token = window.JSBridge.invoke("getToken", {}, function(res) {
+      window.JSBridge.invoke("getToken", {}, function(res) {
         window.localStorage.setItem("token", res.token);
       });
-      window.localStorage.setItem("token", token);
     },
     onClickLeft() {},
     onClickRight() {}
