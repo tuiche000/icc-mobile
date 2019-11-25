@@ -177,16 +177,24 @@ export default {
     },
     async submit() {
       let { accountTransferUUID, value, passWord } = this;
-      if (value.length < 6) {
+      let crypto = require("crypto");
+
+      if (passWord.length < 6) {
         Notify({ type: "warning", message: "请输入六位密码" });
         return;
       }
+      function cryptPwd(password) {
+        var md5 = crypto.createHash("md5");
+        return md5.update(password).digest("hex");
+      }
+      let cryptedPassword = cryptPwd(passWord);
+
       const res = await this.POST_withdraw_transfer({
         toAccountType: "1003",
         currency: "BTC",
         amount: parseFloat(value),
         requestId: accountTransferUUID,
-        passWord: passWord
+        passWord: cryptedPassword
       });
       if (res.code === "200") {
         this.$router.push({

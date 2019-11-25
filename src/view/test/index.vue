@@ -23,12 +23,13 @@ export default {
     };
   },
   created() {
+  
     // console.log(window.JSBridge);
   },
   methods: {
     getUserInfo() {
-      window.JSBridge.invoke("getToken", function (res) {
-        alert(res.token)
+      window.JSBridge.invoke("getToken", function(res) {
+        alert(res.token);
       });
       // alert(token)
     },
