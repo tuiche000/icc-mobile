@@ -31,7 +31,7 @@
           </div>
         </div>
       </div>
-      <Down />
+      <Down v-if="haveApp=='0'" />
     </div>
   </div>
 </template>
@@ -50,8 +50,15 @@ export default {
 
   data() {
     return {
-      checked: true
+      checked: true,
+      haveApp: '0'
     };
+  },
+
+  created() {
+    this.haveApp = window.JSBridge.invoke("haveApp", {}, res => {
+      this.havaApp = res;
+    });
   },
 
   methods: {

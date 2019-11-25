@@ -14,25 +14,27 @@
 
 <script>
 import { NavBar } from "vant";
-import { Locale } from 'vant';
-import enUS from 'vant/lib/locale/lang/en-US';
+import { Locale } from "vant";
+import enUS from "vant/lib/locale/lang/en-US";
+import { instance } from "@/utils/axios";
 export default {
   components: {
     [NavBar.name]: NavBar
   },
   created() {
-    this.init()
+    this.init();
   },
   methods: {
     init() {
-      let lang = navigator.language || navigator.userLanguage;
-      lang = lang.substr(0, 2); //截取lang前2位字符
-      if (lang == "zh") {
-        this.$i18n.locale = "zh-CN";
-      } else {
-        this.$i18n.locale = "en-US";
-        Locale.use('en-US', enUS);
-      }
+      window.JSBridge.invoke("getToken", {}, function(res) {
+        if (res == "zh") {
+          this.$i18n.locale = "zh-CN";
+        } else {
+          this.$i18n.locale = "en-US";
+          Locale.use("en-US", enUS);
+          instance.defaults.headers["Content-Language"] = "en-us";
+        }
+      });
 
       let token = window.JSBridge.invoke("getToken", {}, function(res) {
         window.localStorage.setItem("token", res.token);

@@ -23,7 +23,7 @@
           </div>
         </div>
       </div>
-      <Down />
+      <Down v-if="haveApp=='0'" />
     </div>
   </div>
 </template>
@@ -43,7 +43,7 @@ export default {
   data() {
     return {
       data: "",
-      haveApp: '0',
+      haveApp: '0', //'0'=>没有app，'1'=>有app
     };
   },
 

@@ -14,18 +14,19 @@ require("../../utils/bridge");
 export default {
   components: {
     [Button.name]: Button,
-    [Field.name]: Field,
+    [Field.name]: Field
   },
 
   data() {
     return {
-      value: '',
+      value: "",
       userInfo: {}
     };
   },
   created() {
-  
-    // console.log(window.JSBridge);
+    window.JSBridge.invoke("getLanguage", {}, function(res) {
+      alert(res);
+    });
   },
   methods: {
     getUserInfo() {
@@ -34,10 +35,10 @@ export default {
       });
     },
     gotoNative() {
-      window.JSBridge.invoke('gotoNative', {
+      window.JSBridge.invoke("gotoNative", {
         page: this.value,
         params: {
-          text: '1111'
+          text: "1111"
         }
       });
     }

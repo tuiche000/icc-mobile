@@ -43,11 +43,6 @@
           });
           return;
         case 'Android':
-          console.log(JSON.stringify({
-            bridgeName: bridgeName,
-            data: data || {},
-            callbackId: thisId // 传到 Native 端
-          }))
           return window.nativeBridge.postMessage(JSON.stringify({
             bridgeName: bridgeName,
             data: data || {},
@@ -60,7 +55,13 @@
       }
     },
     receiveMessage: function (msg) {
-      let msg3 = JSON.parse(msg)
+      let msg3;
+      if (typeof msg == 'string') {
+        msg3 = JSON.parse(msg)
+      } else {
+        msg3 = msg
+      }
+
       let { bridgeName, data, callbackId, responstId } = msg3
       // 具体逻辑
       // bridgeName 和 callbackId 不会同时存在

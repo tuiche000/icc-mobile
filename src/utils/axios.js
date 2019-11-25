@@ -2,7 +2,7 @@ import axios from 'axios'
 import { Toast } from 'vant';
 
 console.log(localStorage.getItem('token'))
-let instance = axios.create({
+export let instance = axios.create({
   baseURL: '/',
   timeout: 1000,
   headers: {
