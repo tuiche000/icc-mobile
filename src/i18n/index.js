@@ -6,7 +6,7 @@ import enUS from './en-US'
 
 const i18n = new VueI18n({
   local: 'en-US', // 设置语言 
-  fallbackLocale: 'zh-CN',
+  fallbackLocale: 'en-US',
   messages: {
     "zh-CN": zhCN,
     "en-US": enUS
