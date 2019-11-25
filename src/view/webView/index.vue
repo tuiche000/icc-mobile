@@ -38,6 +38,7 @@ export default {
 
       window.JSBridge.invoke("getToken", {}, function(res) {
         window.localStorage.setItem("token", res.token);
+        instance.defaults.headers["Authorization"] = res.token;
       });
     },
     onClickLeft() {},
