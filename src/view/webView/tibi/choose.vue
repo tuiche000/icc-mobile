@@ -57,7 +57,7 @@ export default {
 
   created() {
     this.haveApp = window.JSBridge.invoke("haveApp", {}, res => {
-      this.havaApp = res;
+      this.haveApp = res;
     });
   },
 
