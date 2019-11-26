@@ -24,7 +24,8 @@ instance.interceptors.response.use(function (response) {
   return Promise.reject(response);
 }, function (error) {
   // 对响应错误做点什么
-  Toast.fail(JSON.stringify(error));
+  alert(JSON.stringify(error))
+  alert(JSON.stringify(error.message))
   // Toast.fail('请求错误');
   return Promise.reject(error);
 });
