@@ -58,7 +58,8 @@ const routes = [
       title: '邀请活动'
     }
   },
-  { ...webView, ...Static }
+  { ...webView },
+  { ...Static },
 ];
 
 // add route path

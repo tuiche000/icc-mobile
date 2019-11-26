@@ -20,9 +20,6 @@ module.exports = {
         loaderOptions: {
             less: {
                 modifyVars: {
-                    // red: '#03a9f4',
-                    // blue: '#3eaf7c',
-                    // orange: '#f08d49',
                     dark: '#999999'
                 }
             },
@@ -37,4 +34,6 @@ module.exports = {
             }
         }
     },
+
+    assetsDir: 'static'
 }
