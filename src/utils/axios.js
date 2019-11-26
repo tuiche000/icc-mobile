@@ -3,7 +3,7 @@ import { Toast } from 'vant';
 
 export let instance = axios.create({
   baseURL: '/',
-  timeout: 1000,
+  timeout: 2500,
   headers: {
     "Source-Site": 'h5.xasq',
     "Content-Language": 'zh-cn',
