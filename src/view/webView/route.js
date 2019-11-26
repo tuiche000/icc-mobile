@@ -20,5 +20,11 @@ export default {
       meta: { title: 'success' },
       component: () => import('@/view/webView/tibi/success')
     },
+    {
+      name: 'webView-notice-success',
+      path: 'notice/list',
+      meta: { title: 'success' },
+      component: () => import('@/view/webView/tibi/success')
+    },
   ]
 }

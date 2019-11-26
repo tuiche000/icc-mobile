@@ -1,13 +1,14 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import webView from '@/view/webView/route';
+import Static from '@/view/static/route';
 
 Vue.use(Router);
 const routes = [
-  {
-    path: '*',
-    redirect: '/webView/tibi/choose'
-  },
+  // {
+  //   path: '*',
+  //   redirect: '/webView/tibi/choose'
+  // },
   {
     name: 'test',
     component: () => import('./view/test'),
@@ -57,7 +58,7 @@ const routes = [
       title: '邀请活动'
     }
   },
-  { ...webView }
+  { ...webView, ...Static }
 ];
 
 // add route path
