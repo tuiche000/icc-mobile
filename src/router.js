@@ -38,20 +38,6 @@ const routes = [
     }
   },
   {
-    name: 'notice/list',
-    component: () => import('./view/notice/list'),
-    meta: {
-      title: '公告列表'
-    }
-  },
-  {
-    name: 'notice/detail',
-    component: () => import('./view/notice/detail'),
-    meta: {
-      title: '公告详情'
-    }
-  },
-  {
     name: 'activity',
     component: () => import('./view/activity'),
     meta: {

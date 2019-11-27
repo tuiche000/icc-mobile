@@ -1,7 +1,7 @@
 <template>
     <div class="notice-list">
         <div class="content" v-for="item in dataList" :key="item.title" :value="item.title">
-            <router-link :to="{path:'/notice/detail', query:{id: item.id}}">
+            <router-link :to="{path:'/webView/notice/detail', query:{id: item.id}}">
                 <div class="title">{{item.title}}</div>
                 <div class="detail">{{item.context}}</div>
                 <div class="issue">

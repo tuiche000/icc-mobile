@@ -24,8 +24,13 @@ export default {
     };
   },
   created() {
-    window.JSBridge.invoke("getLanguage", {}, function(res) {
-      alert(res);
+    // window.JSBridge.invoke("getLanguage", {}, function(res) {
+    //   alert(res);
+    // });
+    window.JSBridge.invoke("NavTopRight", {
+      name: '记录'
+    }, function() {
+      alert('我执行了');
     });
   },
   methods: {
