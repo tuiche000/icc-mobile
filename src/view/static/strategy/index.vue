@@ -28,8 +28,6 @@ export default {
     window.JSBridge.invoke("getLanguage", {}, res => {
       if (res == "zh-cn") {
         this.lang = "zh-cn";
-      } else {
-        this.lang = 'en-us'
       }
     });
   },

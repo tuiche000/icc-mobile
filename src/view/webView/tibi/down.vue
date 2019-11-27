@@ -52,8 +52,10 @@ export default {
 
   methods: {
     toApp() {
-      window.JSBridge.invoke("toApp", {
-        url: "http://m.icncde.com/#/down"
+      window.JSBridge.invoke("getLanguage", {}, res => {
+        window.JSBridge.invoke("toApp", {
+          url: `http://m.icncde.com/#/down?lang=${res}`
+        });
       });
     }
   }
