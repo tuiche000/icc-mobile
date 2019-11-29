@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <div class="box-footer">
+    <div class="section1">
       <div class="title flex flex-direction align-center">
         <div class="proceeds">恭喜你在本次挖矿收益中获得</div>
         <div class="noun">第*名</div>
@@ -10,6 +10,22 @@
         </div>
       </div>
     </div>
+    <div class="section2">
+      <div class="pic-head">
+        <div></div>
+        <div></div>
+      </div>
+      <div class="name-number">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="">
+        <div></div>
+        <div></div>
+      </div>
+
+    </div>
   </div>
 </template>
 
@@ -18,7 +34,7 @@ export default {};
 </script>
 
 <style type="text/less" lang="less" scoped>
-.box-footer {
+.section1 {
   margin: 60px 0 20px 0;
   border-top-right-radius: 15px;
   border-top-left-radius: 15px;
