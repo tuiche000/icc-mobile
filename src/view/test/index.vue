@@ -4,6 +4,8 @@
     <br />
     <van-field v-model="value" placeholder="请输入页面code" />
     <van-button type="info" @click="gotoNative">跳转native页面</van-button>
+    <br />
+    <van-button type="info" @click="nativeLogin">登陆</van-button>
   </div>
 </template>
 
@@ -45,6 +47,11 @@ export default {
         params: {
           text: "1111"
         }
+      });
+    },
+    nativeLogin() {
+      window.JSBridge.invoke("login", {}, function(res) {
+        alert(res.token);
       });
     }
   }

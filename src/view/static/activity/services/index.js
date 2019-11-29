@@ -1,4 +1,4 @@
-import { _GET } from '../../../utils/axios'
+import { _GET } from '@/utils/axios'
 /*
 * 活动：日排行榜
 */

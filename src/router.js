@@ -10,13 +10,6 @@ const routes = [
   //   redirect: '/webView/tibi/choose'
   // },
   {
-    name: 'test',
-    component: () => import('./view/test'),
-    meta: {
-      title: '测试'
-    }
-  },
-  {
     name: 'user',
     component: () => import('./view/user'),
     meta: {
@@ -38,8 +31,15 @@ const routes = [
     }
   },
   {
+    name: 'test',
+    component: () => import('./view/test'),
+    meta: {
+      title: '测试'
+    }
+  },
+  {
     name: 'activity',
-    component: () => import('./view/activity'),
+    component: () => import('./view/static/activity'),
     meta: {
       title: '邀请活动'
     }

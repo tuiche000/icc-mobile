@@ -39,7 +39,7 @@
                 <img v-if="lang==='zh' && active === 0" class="line" src="./images/rank.png" alt="">
                 <img v-if="lang==='zh' && active === 1" class="line" src="./images/rank2-cn.png" alt="">
                 <img v-if="lang!=='zh' && active === 0" class="line" src="./images/rank-cn.png" alt="">
-                <img v-if="lang!=='zh' && active === 1" class="line" src="./images/rank.png" alt="">
+                <img v-if="lang!=='zh' && active === 1" class="line" src="./images/rank2.png" alt="">
                 <div class="day-rank" @click="changeDay"></div>
                 <div class="all-rank" @click="changeAll"></div>
             </div>

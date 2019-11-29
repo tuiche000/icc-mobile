@@ -40,9 +40,7 @@ export default {
         window.localStorage.setItem("token", res.token);
         instance.defaults.headers["Authorization"] = res.token;
       });
-    },
-    onClickLeft() {},
-    onClickRight() {}
+    }
   }
 };
 </script>

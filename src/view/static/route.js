@@ -8,5 +8,11 @@ export default {
       meta: { title: 'Strategy' },
       component: () => import('@/view/static/strategy')
     },
+    {
+      name: 'static-notice',
+      path: 'notice',
+      meta: { title: 'notice' },
+      component: () => import('@/view/static/notice')
+    },
   ]
 }
